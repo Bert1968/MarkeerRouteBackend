@@ -9,12 +9,12 @@ namespace MarkeerRouteBackend.Data
 {
     public class DummyDataRepository
     {
-        public static List<DummyDataItem> Repository;
+        public static List<DummyDataItem>? Repository;
         public static List<Guid> GemarkeerdePartijen;
         private int _overlapLimiet = 10;
-        public int StartTimeStamp { get; private set; }
+        public static int StartTimeStamp { get; private set; }
 
-        public List<GesorteerdeGemarkeerdePartij> GetAankomendeGemarkeerdePartijen(int timestamp, List<KlokPartijLijst> partijLijsten)
+        public List<GesorteerdeGemarkeerdePartij> GetAankomendeGemarkeerdePartijen( List<KlokPartijLijst> partijLijsten)
         {
             var gemarkeerdePartijen = new List<GesorteerdeGemarkeerdePartij>();
             foreach (var klokPartijen in partijLijsten)
@@ -49,6 +49,13 @@ namespace MarkeerRouteBackend.Data
             return gemarkeerdePartijen;
         }
 
+        public void DeleteMarkering(Guid id)
+        {
+            if(GemarkeerdePartijen.Contains(id)) 
+            {
+                GemarkeerdePartijen.Remove(id);
+            }
+        }
 
 
         public KlokPartijLijst GetAankomendePartijen(string klok, int timestamp, int gemiddeldeVertraging)
@@ -105,6 +112,11 @@ namespace MarkeerRouteBackend.Data
                     new Guid("b854eebf-985c-3104-b89b-e6d3a3ba859f")
                 };
             }
+        }
+
+        public void ResetRepository()
+        {
+            Repository = null;
         }
 
 

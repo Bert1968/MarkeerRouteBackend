@@ -1,6 +1,7 @@
 using MarkeerRouteBackend.Data;
 using MarkeerRouteBackend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace MarkeerRouteBackend.Controllers
 {
@@ -25,8 +26,9 @@ namespace MarkeerRouteBackend.Controllers
         [HttpGet(Name = "GetVeilVolgorde")]
         public ActuelePartijInfo Get()
         {
-            int timestamp = (_repo.GetCurrentSeconds() - _repo.StartTimeStamp) % _veilLoopTijd;
-            _logger.LogInformation(DateTime.Now.TimeOfDay + " , " + timestamp);
+            int timestamp = (_repo.GetCurrentSeconds() - DummyDataRepository.StartTimeStamp) % _veilLoopTijd;
+            _logger.LogInformation("{current} , {start}, {diff}, {veillooptijd}, {timestamp}",
+                _repo.GetCurrentSeconds(), DummyDataRepository.StartTimeStamp, (_repo.GetCurrentSeconds() - DummyDataRepository.StartTimeStamp), _veilLoopTijd, timestamp);
 
             var partijInfo =  new ActuelePartijInfo
             {
@@ -38,13 +40,22 @@ namespace MarkeerRouteBackend.Controllers
                     _repo.GetAankomendePartijen("C02",timestamp, 13),
                     _repo.GetAankomendePartijen("C03",timestamp, 14)
                 }
-
             };
 
-            partijInfo.GemarkeerdePartijen = _repo.GetAankomendeGemarkeerdePartijen(timestamp, partijInfo.KlokAankomendePartijen);
+            partijInfo.GemarkeerdePartijen = _repo.GetAankomendeGemarkeerdePartijen(partijInfo.KlokAankomendePartijen);
             return partijInfo;
+        }
 
+        [HttpDelete("{id:Guid}")]
+        public void DeleteMarkering(Guid id)
+        {
+            _repo.DeleteMarkering(id);
+        }
 
+        [HttpPut(Name = "ResetRepository")]
+        public void ResetRepository()
+        {
+            _repo.ResetRepository();
         }
     }
 }
