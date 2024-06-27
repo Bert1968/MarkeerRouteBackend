@@ -28,6 +28,7 @@ namespace MarkeerRouteBackend.Data
                             Prioriteit = 1,
                             VeilVolgordeKlok = p.VeilVolgorde,
                             GeschatteTijdTotOnderKlok = p.VeilVolgorde * klokPartijen.GemiddeldeTijdPerPartij,
+                            GeschatteTijdLeesbaar = LeesbareTijd(p.VeilVolgorde * klokPartijen.GemiddeldeTijdPerPartij),
                             AanvoerderNaam = p.AanvoerderNaam,
                             ProductNaam = p.ProductNaam
                         }
@@ -47,6 +48,23 @@ namespace MarkeerRouteBackend.Data
                 gemarkeerdePartijen[i].DebugAantalNogTeVeilen = gemarkeerdePartijen.Count;
             }
             return gemarkeerdePartijen;
+        }
+
+        private string LeesbareTijd(int secondes)
+        {
+            if(secondes < 60)
+            {
+                //Afronden op 15 seconde
+                return $"~ {((secondes + 2) / 5) * 5} seconden";
+            }
+            else if (secondes < 180)
+            {
+                return $"~ {secondes / 60 + ((secondes % 60) / 30) * .50} minuten";
+            }
+            else
+            {
+                return $"~ {secondes / 60} minuten";
+            }
         }
 
         public void DeleteMarkering(Guid id)
@@ -98,17 +116,17 @@ namespace MarkeerRouteBackend.Data
                 StartTimeStamp = GetCurrentSeconds();
                 GemarkeerdePartijen = new List<Guid>
                 {
+                    new Guid("d4ab80ef-6b2b-34c5-8fe1-315a2eff4310"),
                     new Guid("17f307c1-ea68-3263-be40-fd2386049b03"),
                     new Guid("e1d85801-a664-47fa-9bc8-e9e80a558e7f"),
-                    new Guid("0761a8dd-1eec-38d6-9be8-02b8c3ec3ac9"),
-                    new Guid("7ec4b455-af5f-412f-a908-c4c88b7c778c"),
+                    new Guid("18463c3a-107d-417f-8673-c241051cfc05"),
                     new Guid("d335c930-da9b-3219-8082-6fdfb13804cc"),
                     new Guid("f97c7fdf-7ec7-3d1e-b846-899ddaa06bfb"),
-                    new Guid("eca4d411-2f59-3629-9458-75a40a17829b"),
+                    new Guid("845ec058-9980-432b-a9c5-8a24d94f74dd"),
                     new Guid("756a1647-9779-326a-9bf1-1622b76bee9b"),
-                    new Guid("69573a6a-1ebf-4497-b4dc-2a3759bec6ec"),
+                    new Guid("efc99cf4-c71e-4773-9cc3-5cb1f76ac4bf"),
                     new Guid("da5abdab-a817-4c27-bc5b-097bb822b684"),
-                    new Guid("966e7630-c40d-41e5-8e4b-6bf17df3524f"),
+                    new Guid("b7753a74-90b1-3b49-9e40-040f75c00c64"),
                     new Guid("b854eebf-985c-3104-b89b-e6d3a3ba859f")
                 };
             }

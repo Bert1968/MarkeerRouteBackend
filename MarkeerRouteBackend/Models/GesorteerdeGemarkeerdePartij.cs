@@ -14,6 +14,8 @@ namespace MarkeerRouteBackend
 
         public int GeschatteTijdTotOnderKlok { get; set; }
 
+        public string GeschatteTijdLeesbaar { get; set; }
+
         public string ProductNaam { get; set; }
         public string AanvoerderNaam { get; set; }
         public bool HeeftOverlap { get; set; }
