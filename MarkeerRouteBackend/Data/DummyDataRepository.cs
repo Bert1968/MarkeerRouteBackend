@@ -12,6 +12,7 @@ namespace MarkeerRouteBackend.Data
         public static List<DummyDataItem> Repository;
         public static List<Guid> GemarkeerdePartijen;
         private int _overlapLimiet = 10;
+        public int StartTimeStamp { get; private set; }
 
         public List<GesorteerdeGemarkeerdePartij> GetAankomendeGemarkeerdePartijen(int timestamp, List<KlokPartijLijst> partijLijsten)
         {
@@ -33,11 +34,11 @@ namespace MarkeerRouteBackend.Data
                  ));
             }
             gemarkeerdePartijen = gemarkeerdePartijen.OrderBy(p => p.GeschatteTijdTotOnderKlok).ToList();
-            for(int i = 0; i < gemarkeerdePartijen.Count; i++)
+            for (int i = 0; i < gemarkeerdePartijen.Count; i++)
             {
                 gemarkeerdePartijen[i].RouteVolgnummer = i;
-                if(i > 0 && 
-                    Math.Abs(gemarkeerdePartijen[i-1].GeschatteTijdTotOnderKlok - gemarkeerdePartijen[i].GeschatteTijdTotOnderKlok) < _overlapLimiet)
+                if (i > 0 &&
+                    Math.Abs(gemarkeerdePartijen[i - 1].GeschatteTijdTotOnderKlok - gemarkeerdePartijen[i].GeschatteTijdTotOnderKlok) < _overlapLimiet)
                 {
                     gemarkeerdePartijen[i].HeeftOverlap = true;
                     gemarkeerdePartijen[i - 1].HeeftOverlap = true;
@@ -47,7 +48,7 @@ namespace MarkeerRouteBackend.Data
             }
             return gemarkeerdePartijen;
         }
-                
+
 
 
         public KlokPartijLijst GetAankomendePartijen(string klok, int timestamp, int gemiddeldeVertraging)
@@ -65,12 +66,13 @@ namespace MarkeerRouteBackend.Data
             int aantalPartijenAlGeweest = timestamp / gemiddeldeVertraging;
             var aankomendeKlokPartijen = alleKlokPartijen.Skip(aantalPartijenAlGeweest).ToList();
 
-            for(int i = 0; i < aankomendeKlokPartijen.Count; i++)
+            for (int i = 0; i < aankomendeKlokPartijen.Count; i++)
             {
                 aankomendeKlokPartijen[i].VeilVolgorde = i;
             }
 
-            return new KlokPartijLijst { 
+            return new KlokPartijLijst
+            {
                 DebugAantalGeveild = aantalPartijenAlGeweest,
                 DebugAantalNogTeVeilen = aankomendeKlokPartijen.Count,
                 GemiddeldeTijdPerPartij = gemiddeldeVertraging,
@@ -86,16 +88,16 @@ namespace MarkeerRouteBackend.Data
             if (Repository == null)
             {
                 ProcessDemoDataFile(jsonFilePath);
-  
+                StartTimeStamp = GetCurrentSeconds();
                 GemarkeerdePartijen = new List<Guid>
                 {
-                    new Guid("76b96792-ae24-47ab-9014-c90a249d364b"),
-                    new Guid("ad636066-d176-4400-970e-6cb15085276f"),
-                    new Guid("48018b65-4dd4-4b88-8fee-2eaea689fb55"),
-                    new Guid("69c61ad6-b837-4b09-94d1-c0ece8a02b0a"),
-                    new Guid("f3848caa-c291-4cfe-b898-26e117c545c9"),
-                    new Guid("58e79673-47ad-430b-af0e-37ff21a954f5"),
-                    new Guid("2b3a8232-ded7-4ceb-8a6a-47635e85fe78")
+                    new Guid("17f307c1-ea68-3263-be40-fd2386049b03"),
+                    new Guid("e1d85801-a664-47fa-9bc8-e9e80a558e7f"),
+                    new Guid("0761a8dd-1eec-38d6-9be8-02b8c3ec3ac9"),
+                    new Guid("7ec4b455-af5f-412f-a908-c4c88b7c778c"),
+                    new Guid("d335c930-da9b-3219-8082-6fdfb13804cc"),
+                    new Guid("f97c7fdf-7ec7-3d1e-b846-899ddaa06bfb"),
+                    new Guid("eca4d411-2f59-3629-9458-75a40a17829b")
                 };
             }
         }
@@ -126,9 +128,9 @@ namespace MarkeerRouteBackend.Data
 
             return randomItems;
         }
-    
 
-    private void ProcessDemoDataFile(string resourceName)
+
+        private void ProcessDemoDataFile(string resourceName)
         {
             List<DummyDataItem>? demoClockSupplyLineDtos;
             var assembly = Assembly.GetExecutingAssembly();
@@ -144,7 +146,14 @@ namespace MarkeerRouteBackend.Data
                 });
             }
 
-        }
+
 
         }
+
+        public int GetCurrentSeconds()
+        {
+            DateTime now = DateTime.Now;
+            return now.Hour * 3600 + now.Minute * 60 + now.Second;
+        }
+    }
 }

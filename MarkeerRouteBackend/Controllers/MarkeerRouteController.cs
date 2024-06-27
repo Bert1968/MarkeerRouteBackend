@@ -25,7 +25,7 @@ namespace MarkeerRouteBackend.Controllers
         [HttpGet(Name = "GetVeilVolgorde")]
         public ActuelePartijInfo Get()
         {
-            int timestamp = (DateTime.Now.Minute * 60 + DateTime.Now.Second) % _veilLoopTijd;
+            int timestamp = (_repo.GetCurrentSeconds() - _repo.StartTimeStamp) % _veilLoopTijd;
             _logger.LogInformation(DateTime.Now.TimeOfDay + " , " + timestamp);
 
             var partijInfo =  new ActuelePartijInfo
