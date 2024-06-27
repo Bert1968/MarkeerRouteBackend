@@ -116,12 +116,12 @@ namespace MarkeerRouteBackend.Data
                 StartTimeStamp = GetCurrentSeconds();
                 GemarkeerdePartijen = new List<Guid>
                 {
-                    new Guid("d4ab80ef-6b2b-34c5-8fe1-315a2eff4310"),
+                    new Guid("0fc92f25-b53d-479c-9190-e500a656cfc6"),
                     new Guid("17f307c1-ea68-3263-be40-fd2386049b03"),
                     new Guid("e1d85801-a664-47fa-9bc8-e9e80a558e7f"),
                     new Guid("18463c3a-107d-417f-8673-c241051cfc05"),
                     new Guid("d335c930-da9b-3219-8082-6fdfb13804cc"),
-                    new Guid("f97c7fdf-7ec7-3d1e-b846-899ddaa06bfb"),
+                    new Guid("42efefde-bc3b-45bf-9b29-6403737d9ab7"),
                     new Guid("845ec058-9980-432b-a9c5-8a24d94f74dd"),
                     new Guid("756a1647-9779-326a-9bf1-1622b76bee9b"),
                     new Guid("efc99cf4-c71e-4773-9cc3-5cb1f76ac4bf"),

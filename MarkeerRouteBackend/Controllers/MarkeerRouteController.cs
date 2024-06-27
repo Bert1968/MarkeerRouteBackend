@@ -37,8 +37,8 @@ namespace MarkeerRouteBackend.Controllers
                 KlokAankomendePartijen = new List<KlokPartijLijst>
                 {
                     _repo.GetAankomendePartijen("C01",timestamp, 12),
-                    _repo.GetAankomendePartijen("C02",timestamp, 13),
-                    _repo.GetAankomendePartijen("C03",timestamp, 14)
+                    _repo.GetAankomendePartijen("C02",timestamp, 12),
+                    _repo.GetAankomendePartijen("C03",timestamp, 12)
                 }
             };
 
