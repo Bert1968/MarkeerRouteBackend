@@ -97,7 +97,12 @@ namespace MarkeerRouteBackend.Data
                     new Guid("7ec4b455-af5f-412f-a908-c4c88b7c778c"),
                     new Guid("d335c930-da9b-3219-8082-6fdfb13804cc"),
                     new Guid("f97c7fdf-7ec7-3d1e-b846-899ddaa06bfb"),
-                    new Guid("eca4d411-2f59-3629-9458-75a40a17829b")
+                    new Guid("eca4d411-2f59-3629-9458-75a40a17829b"),
+                    new Guid("756a1647-9779-326a-9bf1-1622b76bee9b"),
+                    new Guid("69573a6a-1ebf-4497-b4dc-2a3759bec6ec"),
+                    new Guid("da5abdab-a817-4c27-bc5b-097bb822b684"),
+                    new Guid("966e7630-c40d-41e5-8e4b-6bf17df3524f"),
+                    new Guid("b854eebf-985c-3104-b89b-e6d3a3ba859f")
                 };
             }
         }
